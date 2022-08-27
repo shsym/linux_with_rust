@@ -52,13 +52,14 @@ make LLVM=1 menuconfig
 ```
 
 - Build and install the kernel and the kernel modules (it would take sometimes)
+  - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
+  - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
+
 ```
 make headers_install
 ./build_kernel.sh
 ./build_kernel_modules.sh
 ```
-  - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
-  - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
 
 - After rebooting to the newly installed, insert the simple Rust module
 ```bash
