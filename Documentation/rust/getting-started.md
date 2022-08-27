@@ -1,0 +1,71 @@
+# Getting Started
+---
+
+This document describes step-by-step commands to build, install, and insert a kernel written in Rust.
+
+_Note: all commands have been tested under Ubuntu server 18.04._
+
+- Install rustc
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+  - Setup `$PATH` following the instruction from the previous command.
+```bash
+vim ~/.zshrc (OR ~/.bashrc, etc.)
+```
+
+- Install dependencies
+```bash
+rustup override set $(scripts/min-tool-version.sh rustc)\n
+rustup component add rust-src
+cargo install --locked --version $(scripts/min-tool-version.sh bindgen) bindgen
+rustup component add rustfmt
+rustup component add clippy
+```
+
+- Install llvm and clang ([Ref.](https://gist.github.com/kittywhiskers/a3395cb41206d8aa777ce0a8b722d37e))
+```bash
+sudo apt-get update
+sudo apt-get install llvm
+
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main" | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install libclang1-11 clang-11 lld-11
+sudo ln -s /usr/bin/clang-11 /usr/bin/clang
+sudo ln -s /usr/bin/lld-11 /usr/bin/lld
+sudo ln -s /usr/bin/ld.lld-11 /usr/bin/ld.lld
+```
+
+- Check installation with the following command.
+  - We should see the message `Rust is available!`
+```bash
+cd [PATH_TO_CLONED_REPO]
+make LLVM=1 rustavailable
+```
+
+- Configuration
+	- General setup → Rust support (enable)
+	- Kernel hacking → Sample kernel code → Rust samples → (enable samples; e.g, rust minimal)
+```bash
+make LLVM=1 menuconfig
+```
+
+- Build and install the kernel and the kernel modules (it would take sometimes)
+```
+make headers_install
+./build_kernel.sh
+./build_kernel_modules.sh
+```
+  - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
+
+- After rebooting to the newly installed, insert the simple Rust module
+```bash
+sudo modprobe rust_minimal
+```
+  - You can see the output from the kernel with `sudo dmesg` or `sudo vim /var/log/kern.log`.
+  - Expected output:
+  ```
+  [  245.550047] rust_minimal: Rust minimal sample (init)
+  [  245.550071] rust_minimal: Am I built-in? false
+  ```
