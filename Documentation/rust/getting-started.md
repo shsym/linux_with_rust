@@ -65,7 +65,7 @@ make headers_install
 ./build_kernel_modules.sh
 ```
 
-- After rebooting to the newly installed, insert the simple Rust module
+- After rebooting to the newly installed kernel (v5.19), you can insert the Rust module by running:
 ```bash
 sudo modprobe rust_minimal
 ```
