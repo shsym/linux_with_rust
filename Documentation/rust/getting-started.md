@@ -50,12 +50,13 @@ make LLVM=1 rustavailable
 
 - Configuration using `menuconfig`
   - General setup → Rust support (enable)
-  - Kernel hacking → Sample kernel code → Rust samples → (enable samples; e.g, rust minimal)
+  - Kernel hacking → Sample kernel code → Rust samples → (enable samples as `m` (module); e.g, rust minimal)
 ```bash
 make LLVM=1 menuconfig
 ```
 
 - Build and install the kernel and the kernel modules (it would take some time, up to an hour)
+  - For any other kernel configuration options (kernel build script may ask some), I chose default values (by pressing enter).
   - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
   - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
 ```
