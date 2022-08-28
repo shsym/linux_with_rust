@@ -41,21 +41,21 @@ sudo ln -s /usr/bin/lld-11 /usr/bin/lld
 sudo ln -s /usr/bin/ld.lld-11 /usr/bin/ld.lld
 ```
 
-- Check installation with the following command.
+- Check the environment/toolchain with the following command.
   - You should see the message `Rust is available!`
 ```bash
 cd [PATH_TO_CLONED_REPO]
 make LLVM=1 rustavailable
 ```
 
-- Configuration
-	- General setup → Rust support (enable)
-	- Kernel hacking → Sample kernel code → Rust samples → (enable samples; e.g, rust minimal)
+- Configuration using `menuconfig`
+  - General setup → Rust support (enable)
+  - Kernel hacking → Sample kernel code → Rust samples → (enable samples; e.g, rust minimal)
 ```bash
 make LLVM=1 menuconfig
 ```
 
-- Build and install the kernel and the kernel modules (it would take some times up to an hour)
+- Build and install the kernel and the kernel modules (it would take some time, up to an hour)
   - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
   - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
 ```
