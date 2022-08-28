@@ -55,7 +55,7 @@ make LLVM=1 rustavailable
 make LLVM=1 menuconfig
 ```
 
-- Build and install the kernel and the kernel modules (it would take sometimes up to an hour)
+- Build and install the kernel and the kernel modules (it would take some times up to an hour)
   - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
   - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
 ```
@@ -68,7 +68,7 @@ make headers_install
 ```bash
 sudo modprobe rust_minimal
 ```
-  - You can see the output from the kernel with `sudo dmesg` or `sudo vim /var/log/kern.log`.
+- You can see the output from the kernel with `sudo dmesg` or `sudo vim /var/log/kern.log`.
   - Expected output:
   ```
   [  245.550047] rust_minimal: Rust minimal sample (init)
