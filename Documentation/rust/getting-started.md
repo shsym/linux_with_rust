@@ -3,13 +3,17 @@
 
 This document describes step-by-step commands to build, install, and insert a kernel written in Rust.
 
-_Note: all commands have been tested under Ubuntu server 18.04._
+**Since the kernel (re-)installation can break your system easily, I recommand using a VM for safety and convenience.**
+
+_Note 1: All commands have been tested under Ubuntu server 18.04._
+
+_Note 2: If your environment is not ready for building Linux kernel, please check [this link](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel) and install related packages/dependencies._
 
 - Install rustc
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-  - Setup `$PATH` following the instruction from the previous command.
+  - Setup `$PATH` following _the instruction from the previous command_.
 ```bash
 vim ~/.zshrc (OR ~/.bashrc, etc.)
 ```
@@ -38,7 +42,7 @@ sudo ln -s /usr/bin/ld.lld-11 /usr/bin/ld.lld
 ```
 
 - Check installation with the following command.
-  - We should see the message `Rust is available!`
+  - You should see the message `Rust is available!`
 ```bash
 cd [PATH_TO_CLONED_REPO]
 make LLVM=1 rustavailable
@@ -51,10 +55,9 @@ make LLVM=1 rustavailable
 make LLVM=1 menuconfig
 ```
 
-- Build and install the kernel and the kernel modules (it would take sometimes)
+- Build and install the kernel and the kernel modules (it would take sometimes up to an hour)
   - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
   - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
-
 ```
 make headers_install
 ./build_kernel.sh
