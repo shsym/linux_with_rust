@@ -9,6 +9,8 @@ _Note 1: All commands have been tested under Ubuntu server 18.04._
 
 _Note 2: If your environment is not ready for building Linux kernel, please check [this link](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel) and install related packages/dependencies._
 
+_Note 3: This document builds and installs the kernel and the kernel modules **from inside the VM**. If you want to generate Linux image directly from the source code natively on your machine and run it with QEMU/emulation, refer to [this link](https://linuxfoundation.org/webinars/writing-linux-kernel-modules-in-rust/)._
+
 - Install rustc
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
