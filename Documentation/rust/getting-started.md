@@ -53,6 +53,7 @@ make LLVM=1 rustavailable
 - Configuration using `menuconfig`
   - General setup → Rust support (enable)
   - Kernel hacking → Sample kernel code → Rust samples → (enable samples as `m` (module); e.g, rust minimal)
+  - If you want to keep the same configuration of the currently running kernel, you can find the configuration file (`.config`)[at here](https://superuser.com/questions/287371/obtain-kernel-config-from-currently-running-linux-system). Note that you must enable the rust-related features above.
 ```bash
 make LLVM=1 menuconfig
 ```
