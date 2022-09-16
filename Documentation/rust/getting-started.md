@@ -7,9 +7,11 @@ This document describes step-by-step commands to build, install, and insert a ke
 
 _Note 1: All commands have been tested under a KVM/QEMU VM running Ubuntu server 18.04._
 
-_Note 2: If your environment is not ready for building Linux kernel, please check [this link](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel) and install related packages/dependencies._
+_Note 2: This document builds and installs the kernel and the kernel modules **from inside the VM**. If you want to generate Linux image directly from the source code natively on your machine and run it with QEMU/emulation, refer to [this link](https://linuxfoundation.org/webinars/writing-linux-kernel-modules-in-rust/)._
 
-_Note 3: This document builds and installs the kernel and the kernel modules **from inside the VM**. If you want to generate Linux image directly from the source code natively on your machine and run it with QEMU/emulation, refer to [this link](https://linuxfoundation.org/webinars/writing-linux-kernel-modules-in-rust/)._
+## Preparing development environment
+We need to install rust related packages and dependencies that required for building kernel module in Rust.
+_Note 3: If your environment is not ready for building Linux kernel, please check [this link](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel) and install related packages/dependencies._
 
 - Install rustc
 ```bash
@@ -50,25 +52,31 @@ cd [PATH_TO_CLONED_REPO]
 make LLVM=1 rustavailable
 ```
 
+## Kernel compilation
+To build Linux kernel, we need to prepare correct build configuration that supports Rust. You can do it by enabling Ruyt-related flags as follows:
+
 - Configuration using `menuconfig`
   - General setup → Rust support (enable)
   - Kernel hacking → Sample kernel code → Rust samples → (enable samples as `m` (module); e.g, rust minimal)
-  - If you want to keep the same configuration of the currently running kernel, you can find the configuration file (`.config`)[at here](https://superuser.com/questions/287371/obtain-kernel-config-from-currently-running-linux-system). Note that you must enable the rust-related features above.
+- If you want to keep the same configuration of the currently running kernel, you can find the configuration file (`.config`)[at here](https://superuser.com/questions/287371/obtain-kernel-config-from-currently-running-linux-system). Note that you must enable the rust-related features above.
 ```bash
 make LLVM=1 menuconfig
 ```
 
+Now we are going to build the kernel and kernel modules including the ones written in Rust.
 - Build and install the kernel and the kernel modules (it would take some time, up to an hour)
-  - For any other kernel configuration options (kernel build script may ask some), I chose default values (by pressing enter).
-  - Path to the source code of the module is `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
-  - Location of local build for the rust module is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
+  - For any other kernel configuration options (kernel build script may ask some), I chose default values (by pressing enter/return key).
+  - Example pathes you may want to take a look:
+    - Path to the source code of the `rust_minimal` module: `[PATH_TO_REPO]/samples/rust/rust_minimal.rs`
+    - Location of local build for the `rust_minimal` is `[PATH_TO_REPO]/samples/rust/rust_minimal.ko`
 ```
 make headers_install
 ./build_kernel.sh
 ./build_kernel_modules.sh
 ```
 
-- After rebooting to the newly installed kernel (v5.19), you can insert the Rust module by running:
+## Testing out kernel modules
+After rebooting to the newly installed kernel (e.g., v5.19), you can insert the Rust module by running:
 ```bash
 sudo modprobe rust_minimal
 ```
