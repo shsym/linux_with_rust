@@ -3,7 +3,7 @@
 
 This document describes step-by-step commands to build, install, and insert a kernel written in Rust.
 
-**Since the kernel (re-)installation can break your system easily, I recommand using a VM for safety and convenience.**
+**Disclaimer | Since the kernel (re-)installation can break your system easily, I recommand using a VM for safety and convenience.**
 
 _Note 1: All commands have been tested under a KVM/QEMU VM running Ubuntu server 18.04._
 
