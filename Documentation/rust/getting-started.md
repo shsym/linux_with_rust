@@ -9,6 +9,7 @@ _Note 1: All commands have been tested under a KVM/QEMU VM running Ubuntu server
 
 _Note 2: This document builds and installs the kernel and the kernel modules **from inside the VM**. If you want to generate Linux image directly from the source code natively on your machine and run it with QEMU/emulation, refer to [this link](https://linuxfoundation.org/webinars/writing-linux-kernel-modules-in-rust/)._
 
+
 ## Preparing development environment
 We need to install rust related packages and dependencies that required for building kernel module in Rust.
 _Note 3: If your environment is not ready for building Linux kernel, please check [this link](https://wiki.ubuntu.com/Kernel/BuildYourOwnKernel) and install related packages/dependencies._
@@ -52,6 +53,7 @@ cd [PATH_TO_CLONED_REPO]
 make LLVM=1 rustavailable
 ```
 
+
 ## Kernel compilation
 To build Linux kernel, we need to prepare correct build configuration that supports Rust. You can do it by enabling Ruyt-related flags as follows:
 
@@ -74,6 +76,7 @@ make headers_install
 ./build_kernel.sh
 ./build_kernel_modules.sh
 ```
+
 
 ## Testing out kernel modules
 After rebooting to the newly installed kernel (e.g., v5.19), you can insert the Rust module by running:
