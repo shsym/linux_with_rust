@@ -8,6 +8,7 @@ This document describes step-by-step commands to build, install, and insert a ke
 _Note 1: All commands have been tested under a KVM/QEMU VM running Ubuntu server 18.04._
 
 _Note 2: This document builds and installs the kernel and the kernel modules **from inside the VM**. If you want to generate Linux image directly from the source code natively on your machine and run it with QEMU/emulation, refer to [this link](https://linuxfoundation.org/webinars/writing-linux-kernel-modules-in-rust/)._
+</br></br>
 
 
 ## Preparing development environment
@@ -52,7 +53,7 @@ sudo ln -s /usr/bin/ld.lld-11 /usr/bin/ld.lld
 cd [PATH_TO_CLONED_REPO]
 make LLVM=1 rustavailable
 ```
-
+</br>
 
 ## Kernel compilation
 To build Linux kernel, we need to prepare correct build configuration that supports Rust. You can do it by enabling Ruyt-related flags as follows:
@@ -76,7 +77,7 @@ make headers_install
 ./build_kernel.sh
 ./build_kernel_modules.sh
 ```
-
+</br>
 
 ## Testing out kernel modules
 After rebooting to the newly installed kernel (e.g., v5.19), you can insert the Rust module by running:
